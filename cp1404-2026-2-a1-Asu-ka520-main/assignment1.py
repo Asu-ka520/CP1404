@@ -9,14 +9,12 @@ import csv
 import operator
 import random
 
-# Named Constants
 FILENAME = "albums.csv"
 STATUS_REQUIRED = 'r'
 STATUS_COMPLETED = 'c'
 
 
 def main():
-    """Main program loop and logic controller."""
     print("Albums Archive 1.0 by Your Name")
     albums = load_albums(FILENAME)
 
@@ -41,7 +39,6 @@ def main():
 
 
 def display_menu():
-    """Print the program menu choices."""
     print("\nMenu:")
     print("D - Display all albums")
     print("R - Recommend a random album")
@@ -51,10 +48,6 @@ def display_menu():
 
 
 def load_albums(filename):
-    """
-    Load album rows from a CSV file into a list of lists.
-    Sorts the data by status then by year using operator.itemgetter.
-    """
     albums = []
     try:
         with open(filename, 'r', encoding='utf-8') as file:
@@ -71,13 +64,11 @@ def load_albums(filename):
         print(f"Error, {filename} not found!")
         print(f"0 albums loaded from {filename}")
 
-    # Sorted by status (index 3) then by year (index 2)
     albums.sort(key=operator.itemgetter(3, 2))
     return albums
 
 
 def save_albums(filename, albums):
-    """Overwrite the CSV file with the updated album dataset upon quitting."""
     try:
         with open(filename, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
@@ -87,10 +78,6 @@ def save_albums(filename, albums):
 
 
 def display_albums(albums):
-    """
-    Dynamically align and display the sorted list of albums.
-    Tracks required album counts and matches output formatting requirements.
-    """
     if not albums:
         print("No albums!")
         return
@@ -112,7 +99,6 @@ def display_albums(albums):
 
 
 def recommend_album(albums):
-    """Select and display a random album from the remaining required items."""
     required_albums = [album for album in albums if album[3] == STATUS_REQUIRED]
 
     if not required_albums:
@@ -125,7 +111,6 @@ def recommend_album(albums):
 
 
 def add_album(albums):
-    """Prompt, check, and store valid input values for a new required album entry."""
     title = get_valid_string("Title: ")
     artist = get_valid_string("Artist: ")
     year = get_valid_number("Year: ", low=0)
@@ -138,7 +123,6 @@ def add_album(albums):
 
 
 def mark_album_completed(albums):
-    """Change an explicitly targeted required album status to completed."""
     required_count = sum(1 for album in albums if album[3] == STATUS_REQUIRED)
     if required_count == 0:
         print("No required albums.")
@@ -158,7 +142,6 @@ def mark_album_completed(albums):
 
 
 def get_valid_string(prompt):
-    """Generic error-checking input function for non-empty string validation."""
     while True:
         user_input = input(prompt).strip()
         if user_input:
@@ -167,7 +150,6 @@ def get_valid_string(prompt):
 
 
 def get_valid_number(prompt, low, high=None):
-    """Generic integer error-checking input function matching exact value ranges."""
     while True:
         try:
             value = int(input(prompt))
@@ -181,6 +163,5 @@ def get_valid_number(prompt, low, high=None):
             print("Invalid input; enter a valid number")
 
 
-# Program Entry Point
 if __name__ == '__main__':
     main()
