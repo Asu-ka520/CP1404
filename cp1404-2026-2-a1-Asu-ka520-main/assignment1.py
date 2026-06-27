@@ -2,6 +2,7 @@
 CP1404/CP5632 Assignment 1 - Albums Archive
 Name:Hu Zedong
 Date started:2026/6/23
+Link:https://github.com/Asu-ka520/CP1404/tree/master/cp1404-2026-2-a1-Asu-ka520-main
 """
 
 import csv
@@ -178,3 +179,8 @@ def get_valid_number(prompt, low, high=None):
                 return value
         except ValueError:
             print("Invalid input; enter a valid number")
+
+
+# Program Entry Point
+if __name__ == '__main__':
+    main()
